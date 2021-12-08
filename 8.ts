@@ -99,16 +99,10 @@ function part1(input: Display[]): number {
 }
 
 function part2(input: Display[]): number {
+  const permutations = computePermutations(['a', 'b', 'c', 'd', 'e', 'f', 'g']);
+
   const decodedDigits = input.map((i) => {
-    const permutations = computePermutations([
-      'a',
-      'b',
-      'c',
-      'd',
-      'e',
-      'f',
-      'g',
-    ]);
+    const allSignals = [...i.signalPatterns, ...i.digitOutput];
 
     const permutation = permutations
       .map((p) => ({
@@ -121,9 +115,7 @@ function part2(input: Display[]): number {
         [p[6]]: 'g',
       }))
       .find((p) => {
-        return [...i.signalPatterns, ...i.digitOutput].every(
-          (s) => checkSignal(p as SignalMap, s) !== -1,
-        );
+        return allSignals.every((s) => checkSignal(p as SignalMap, s) !== -1);
       });
 
     return Number(
