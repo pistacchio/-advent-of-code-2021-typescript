@@ -6,5 +6,6 @@ import { run as run5 } from './5';
 import { run as run6 } from './6';
 import { run as run7 } from './7';
 import { run as run8 } from './8';
+import { run as run9 } from './9';
 
-run8();
+run9();
