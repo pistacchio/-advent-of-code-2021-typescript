@@ -25,6 +25,13 @@ const PART_1_BRACKET_SCORES = {
   '>': 25137,
 };
 
+const PART_2_BRACKET_SCORES = {
+  ')': 1,
+  ']': 2,
+  '}': 3,
+  '>': 4,
+};
+
 const input = fs
   .readFileSync(__dirname + INPUT_FILE)
   .toString()
@@ -63,7 +70,33 @@ function part1(input: string[][]): number {
 }
 
 function part2(input: string[][]): number {
-  return 1;
+  const noCorruptedLines = input.filter(
+    (line) => !getLineCorruptionErrors(line),
+  );
+
+  const incompletions: string[][] = [];
+
+  for (const line of noCorruptedLines) {
+    const openBrackets = [];
+
+    for (const char of line) {
+      if (OPENING_BRACKETS[char]) {
+        openBrackets.push(char);
+      } else {
+        openBrackets.pop();
+      }
+    }
+
+    incompletions.push(openBrackets.reverse().map((b) => OPENING_BRACKETS[b]));
+  }
+
+  const scores = incompletions
+    .map((inc) =>
+      inc.reduce((sum, curr) => sum * 5 + PART_2_BRACKET_SCORES[curr], 0),
+    )
+    .sort((a, b) => a - b);
+
+  return scores[Math.floor(scores.length / 2)];
 }
 
 export function run(): void {
