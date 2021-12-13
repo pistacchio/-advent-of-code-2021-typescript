@@ -9,5 +9,6 @@ import { run as run8 } from './8';
 import { run as run9 } from './9';
 import { run as run10 } from './10';
 import { run as run11 } from './11';
+import { run as run12 } from './12';
 
-run11();
+run12();
